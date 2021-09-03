@@ -14,8 +14,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container,MainFragment.newInstance()).commit()
 
+        // здесь вход в теоорию
         val lesson = Lesson3()
-        lesson.mainSecondPart()
+        lesson.mainSecondPart(this)
     }
 
 }
