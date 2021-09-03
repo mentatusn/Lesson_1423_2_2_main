@@ -5,4 +5,7 @@ import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
 interface Repository {
     fun getWeatherFromRemoteSource():Weather
     fun getWeatherFromLocalSource():Weather
+
+    fun getWeatherFromLocalStorageRus(): List<Weather>
+    fun getWeatherFromLocalStorageWorld(): List<Weather>
 }
