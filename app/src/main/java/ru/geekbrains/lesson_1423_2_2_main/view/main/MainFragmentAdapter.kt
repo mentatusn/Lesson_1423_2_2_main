@@ -41,11 +41,15 @@ class MainFragmentAdapter:RecyclerView.Adapter<MainFragmentAdapter.MainFragmentV
         fun render(weather: Weather){
             itemView.findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text =weather.city.name
             itemView.setOnClickListener( object : View.OnClickListener{
-                override fun onClick(p0: View?) {
+                override fun onClick(view: View) {
                     Toast.makeText(itemView.context,"РАБОТАЕТ",Toast.LENGTH_SHORT).show()
                     listener.onItemClick(weather)
                 }
             })
+            itemView.setOnClickListener {
+                Toast.makeText(itemView.context, "РАБОТАЕТ", Toast.LENGTH_SHORT).show()
+                listener.onItemClick(weather)
+            }
         }
     }
 }
