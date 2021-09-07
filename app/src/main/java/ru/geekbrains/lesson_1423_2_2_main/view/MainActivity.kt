@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.lesson4.LambdaJava
+import ru.geekbrains.lesson_1423_2_2_main.lesson4.LambdaKotlin
 import ru.geekbrains.lesson_1423_2_2_main.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         // НЕВОЗМОЖНО var appState = AppState()
 
-        LambdaJava.main()
+        LambdaKotlin().main()
     }
 
 }
