@@ -12,6 +12,7 @@ import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentMainBinding
 import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
 import ru.geekbrains.lesson_1423_2_2_main.view.OnItemViewClickListener
+import ru.geekbrains.lesson_1423_2_2_main.view.details.DetailsFragment
 import ru.geekbrains.lesson_1423_2_2_main.viewmodel.AppState
 import ru.geekbrains.lesson_1423_2_2_main.viewmodel.MainViewModel
 
