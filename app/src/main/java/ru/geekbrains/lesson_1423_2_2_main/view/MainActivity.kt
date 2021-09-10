@@ -9,6 +9,7 @@ import ru.geekbrains.lesson_1423_2_2_main.lesson4.MyExtension
 import ru.geekbrains.lesson_1423_2_2_main.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
+    var field: String? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
