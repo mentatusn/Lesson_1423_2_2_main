@@ -1,18 +1,37 @@
 package ru.geekbrains.lesson_1423_2_2_main.view.details
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentDetailsBinding
 import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
+import ru.geekbrains.lesson_1423_2_2_main.lesson6.MainService
 import ru.geekbrains.lesson_1423_2_2_main.repository.WeatherDTO
-import ru.geekbrains.lesson_1423_2_2_main.repository.WeatherLoader
 import ru.geekbrains.lesson_1423_2_2_main.repository.WeatherLoaderListener
 
 class DetailsFragment : Fragment(), WeatherLoaderListener {
 
+
+    private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.let {
+                val weatherDTO = it.getParcelableExtra<WeatherDTO>(DETAILS_LOAD_RESULT_EXTRA)
+                if (weatherDTO != null) {
+                    showWeather(weatherDTO)
+                } else {
+                    // HW ERROR
+                }
+            }
+
+        }
+    }
 
     val listener = object : WeatherLoaderListener {
         override fun onLoaded(weatherDTO: WeatherDTO) {
@@ -29,11 +48,6 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
         }
 
     companion object {
-        /*
-        fun newInstance():Fragment{
-            return MainFragment()
-        }
-        */
         fun newInstance(bundle: Bundle): DetailsFragment {
             val fragment = DetailsFragment()
             fragment.arguments = bundle
@@ -47,7 +61,7 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //return inflater.inflate(R.layout.fragment_main, container, false)
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
@@ -59,7 +73,13 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        WeatherLoader(this, localWeather.city.lat, localWeather.city.lon).loadWeather()
+        //WeatherLoader(this, localWeather.city.lat, localWeather.city.lon).loadWeather()
+        val intent = Intent(requireActivity(), DetailsService::class.java)
+        intent.putExtra(LATITUDE_EXTRA, localWeather.city.lat)
+        intent.putExtra(LONGITUDE_EXTRA, localWeather.city.lon)
+        requireActivity().startService(intent)
+        LocalBroadcastManager.getInstance(requireActivity())
+            .registerReceiver(receiver, IntentFilter(DETAILS_INTENT_FILTER))
     }
 
     private fun showWeather(weatherDTO: WeatherDTO) {

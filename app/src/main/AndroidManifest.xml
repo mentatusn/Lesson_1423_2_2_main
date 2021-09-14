@@ -32,6 +32,7 @@
         </activity>
 
         <service android:name=".lesson6.MainService" />
+        <service android:name=".view.details.DetailsService" />
 
         <receiver
             android:name=".lesson6.MainBroadcastReceiver"
@@ -41,6 +42,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>
