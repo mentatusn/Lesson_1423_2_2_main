@@ -1,5 +1,7 @@
 package ru.geekbrains.lesson_1423_2_2_main.view
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main_webview.*
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainWebviewBinding
+import ru.geekbrains.lesson_1423_2_2_main.lesson6.MainBroadcastReceiver
 import ru.geekbrains.lesson_1423_2_2_main.lesson6.ThreadsFragment
 import ru.geekbrains.lesson_1423_2_2_main.view.main.MainFragment
 import java.io.BufferedReader
@@ -27,6 +30,8 @@ import javax.net.ssl.HttpsURLConnection
 class MainActivity : AppCompatActivity() {
 
 
+    private val receiver = MainBroadcastReceiver()
+
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,12 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, MainFragment.newInstance()).commit()
+
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+        registerReceiver(receiver, IntentFilter("myaction"))
+
+        val mySendIntent = Intent("myaction")
+        sendBroadcast(mySendIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
