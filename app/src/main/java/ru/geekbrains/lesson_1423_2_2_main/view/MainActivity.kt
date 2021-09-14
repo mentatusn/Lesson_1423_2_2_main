@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_main_webview.*
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainWebviewBinding
+import ru.geekbrains.lesson_1423_2_2_main.lesson6.ThreadsFragment
 import ru.geekbrains.lesson_1423_2_2_main.view.main.MainFragment
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -31,6 +36,22 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, MainFragment.newInstance()).commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_screen_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.action_open_fragment_threads ->{
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ThreadsFragment.newInstance()).commit()
+                true
+            }
+            else ->super.onOptionsItemSelected(item)
+        }
     }
 
 
