@@ -3,6 +3,7 @@ package ru.geekbrains.lesson_1423_2_2_main.lesson6
 import android.app.IntentService
 import android.content.Intent
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 const val MAIN_SERVICE_STRING_EXTRA = "MainServiceExtra"
 
@@ -10,6 +11,11 @@ class MainService(name:String="name"):IntentService(name) {
 
     override fun onHandleIntent(intent: Intent?) {
         createLogMessage("onHandleIntent ${intent?.getStringExtra(MAIN_SERVICE_STRING_EXTRA)}")
+
+        val mySendIntent = Intent(TEST_BROADCAST_INTENT_FILTER)
+        mySendIntent.putExtra(THREADS_FRAGMENT_BROADCAST_EXTRA,"answer ${(0..100).random()}")
+        //sendBroadcast(mySendIntent)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(mySendIntent)
     }
 
     override fun onCreate() {

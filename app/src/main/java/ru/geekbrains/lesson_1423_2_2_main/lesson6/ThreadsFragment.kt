@@ -1,6 +1,9 @@
 package ru.geekbrains.lesson_1423_2_2_main.lesson6
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,11 +12,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentThreadsBinding
 import java.util.*
-import java.util.concurrent.TimeUnit
 
+const val TEST_BROADCAST_INTENT_FILTER = "TEST BROADCAST INTENT FILTER"
+const val THREADS_FRAGMENT_BROADCAST_EXTRA = "THREADS_FRAGMENT_EXTRA"
 class ThreadsFragment : Fragment() {
+
+    private val receiver: BroadcastReceiver = object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            binding.mainContainer.addView(TextView(context).apply {
+                val message = intent?.getStringExtra(THREADS_FRAGMENT_BROADCAST_EXTRA)
+                text = "S+BR $message"
+                textSize = 30f
+            })
+        }
+    }
 
     companion object {
         fun newInstance() = ThreadsFragment()
@@ -34,6 +49,17 @@ class ThreadsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firstPart()
+        registerBroadcast()
+    }
+
+    private fun registerBroadcast() {
+        //requireActivity().registerReceiver(receiver, IntentFilter(TEST_BROADCAST_INTENT_FILTER))
+        LocalBroadcastManager.getInstance(requireActivity())
+            .registerReceiver(receiver, IntentFilter(TEST_BROADCAST_INTENT_FILTER))
+    }
+
+    private fun firstPart() {
         // DANGER
         binding.button.setOnClickListener {
             val timer = binding.editText.text.toString().toInt()
@@ -82,14 +108,20 @@ class ThreadsFragment : Fragment() {
         handlerThread.mHandler?.looper?.quit()// выходим незамедлительно
 
 
-        binding.btnService.setOnClickListener{
-            context?.let{
-                val intent = Intent(it,MainService::class.java)
-                intent.putExtra(MAIN_SERVICE_STRING_EXTRA,"привет сервис, я фрагмент")
+        binding.btnService.setOnClickListener {
+            context?.let {
+                val intent = Intent(it, MainService::class.java)
+                intent.putExtra(MAIN_SERVICE_STRING_EXTRA, "привет сервис, я фрагмент")
                 it.startService(intent)
             }
         }
-
+        binding.btnServiceBroadcast.setOnClickListener {
+            context?.let {
+                val intent = Intent(it, MainService::class.java)
+                intent.putExtra(MAIN_SERVICE_STRING_EXTRA, "привет сервис, я фрагмент")
+                it.startService(intent)
+            }
+        }
     }
 
     private fun startCalculations(timer: Int) {
