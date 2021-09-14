@@ -1,5 +1,6 @@
 package ru.geekbrains.lesson_1423_2_2_main.lesson6
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -79,6 +80,15 @@ class ThreadsFragment : Fragment() {
         }
         handlerThread.mHandler?.looper?.quitSafely() // ожидаем завершения всех задач
         handlerThread.mHandler?.looper?.quit()// выходим незамедлительно
+
+
+        binding.btnService.setOnClickListener{
+            context?.let{
+                val intent = Intent(it,MainService::class.java)
+                intent.putExtra(MAIN_SERVICE_STRING_EXTRA,"привет сервис, я фрагмент")
+                it.startService(intent)
+            }
+        }
 
     }
 
