@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
+import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
 import ru.geekbrains.lesson_1423_2_2_main.repository.DetailsRepositoryImpl
 import ru.geekbrains.lesson_1423_2_2_main.repository.RemoteDataSource
 import ru.geekbrains.lesson_1423_2_2_main.repository.WeatherDTO
@@ -21,23 +22,27 @@ class DetailsViewModel(
 
     fun getLiveData() = detailsLiveDataToObserve;
 
-    fun getWeatherFromRemoteSource(requestLink:String){
+    fun getWeatherFromRemoteSource(lat:Double,log:Double){
         detailsLiveDataToObserve.value = AppState.Loading
-        detailsRepositoryImpl.getWeatherDetailsFromServer(requestLink,callback)
+        detailsRepositoryImpl.getWeatherDetailsFromServer(lat,log,callback)
     }
-    private val callback =  object : Callback {
-        override fun onFailure(call: Call, e: IOException) {
-            // TODO HW   detailsLiveDataToObserve.postValue( AppState.Error("dfhgerh"))
-        }
+    private val callback =  object : retrofit2.Callback<WeatherDTO> {
 
-        override fun onResponse(call: Call, response: Response) {
-            val serverResponse: String? = response.body?.string()
-            if(response.isSuccessful&&serverResponse!=null){
-                val weatherDTO = Gson().fromJson(serverResponse, WeatherDTO::class.java)
-                detailsLiveDataToObserve.postValue( AppState.Success(convertDtoToModel(weatherDTO)))
+
+        override fun onResponse(call: retrofit2.Call<WeatherDTO>, response: retrofit2.Response<WeatherDTO>) {
+
+            if(response.isSuccessful&&response.body()!=null){
+                val weatherDTO = response.body()
+                weatherDTO?.let{
+                    detailsLiveDataToObserve.postValue( AppState.Success(convertDtoToModel(weatherDTO)))
+                }
             }else{
                 // TODO HW   detailsLiveDataToObserve.postValue( AppState.Error("dfhgerh"))
             }
+        }
+
+        override fun onFailure(call: retrofit2.Call<WeatherDTO>, t: Throwable) {
+            // TODO HW   detailsLiveDataToObserve.postValue( AppState.Error("dfhgerh"))
         }
     }
 

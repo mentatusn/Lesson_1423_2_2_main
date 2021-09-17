@@ -15,23 +15,16 @@ import ru.geekbrains.lesson_1423_2_2_main.view.main.MainFragment
 class MainActivity : AppCompatActivity() {
 
 
-    private val receiver = MainBroadcastReceiver()
+
 
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setContentView(R.layout.activity_main)
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, MainFragment.newInstance()).commit()
-
-        registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
-        registerReceiver(receiver, IntentFilter("myaction"))
-
-        val mySendIntent = Intent("myaction")
-        sendBroadcast(mySendIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

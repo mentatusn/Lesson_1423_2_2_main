@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentDetailsBinding
 import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
 import ru.geekbrains.lesson_1423_2_2_main.utils.show
+import ru.geekbrains.lesson_1423_2_2_main.view.MainActivity
 import ru.geekbrains.lesson_1423_2_2_main.viewmodel.AppState
 import ru.geekbrains.lesson_1423_2_2_main.viewmodel.DetailsViewModel
 
@@ -53,8 +54,7 @@ class DetailsFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner,{
             renderData(it)
         })
-        viewModel.getWeatherFromRemoteSource("https://api.weather.yandex.ru/v2/informers?lat=${
-            localWeather.city.lat}&lon=${localWeather.city.lon}")
+        getWeather()
     }
 
     private fun renderData(appState: AppState) {
@@ -64,11 +64,7 @@ class DetailsFragment : Fragment() {
                 binding.mainView.visibility = View.VISIBLE
                 val throwable = appState.error
                 view?.show("ERROR $throwable","RELOAD") {
-                    viewModel.getWeatherFromRemoteSource(
-                        "https://api.weather.yandex.ru/v2/informers?lat=${
-                            localWeather.city.lat
-                        }&lon=${localWeather.city.lon}"
-                    )
+                    getWeather()
                 }
             }
             AppState.Loading -> {
@@ -83,6 +79,10 @@ class DetailsFragment : Fragment() {
                 Snackbar.make(binding.root, "Success", Snackbar.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun getWeather() {
+        viewModel.getWeatherFromRemoteSource(localWeather.city.lat, localWeather.city.lon)
     }
 
     private fun showWeather(weather: Weather) {
