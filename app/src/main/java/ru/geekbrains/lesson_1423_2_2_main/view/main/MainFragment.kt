@@ -76,8 +76,6 @@ class MainFragment : Fragment(), OnItemViewClickListener {
     }
 
     private fun renderData(appState: AppState) {
-
-
         when (appState) {
             is AppState.Error -> {
                 binding.mainFragmentLoadingLayout.visibility = View.GONE
@@ -87,7 +85,7 @@ class MainFragment : Fragment(), OnItemViewClickListener {
             AppState.Loading -> {
                 binding.mainFragmentLoadingLayout.visibility = View.VISIBLE
             }
-            is AppState.Success -> {
+            is AppState.SuccessMain -> {
                 binding.mainFragmentLoadingLayout.visibility = View.GONE
                 val weather = appState.weatherData
                 adapter.setWeather(weather)

@@ -32,9 +32,9 @@ class MainViewModel(
         Thread {
             sleep(1000)
             if(isRussian){
-                liveDataToObserve.postValue(AppState.Success(repositoryImpl.getWeatherFromLocalStorageRus()))
+                liveDataToObserve.postValue(AppState.SuccessMain(repositoryImpl.getWeatherFromLocalStorageRus()))
             }else{
-                liveDataToObserve.postValue(AppState.Success(repositoryImpl.getWeatherFromLocalStorageWorld()))
+                liveDataToObserve.postValue(AppState.SuccessMain(repositoryImpl.getWeatherFromLocalStorageWorld()))
             }
 
         }.start()
