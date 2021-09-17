@@ -2,17 +2,10 @@ package ru.geekbrains.lesson_1423_2_2_main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
 import ru.geekbrains.lesson_1423_2_2_main.repository.DetailsRepositoryImpl
 import ru.geekbrains.lesson_1423_2_2_main.repository.RemoteDataSource
 import ru.geekbrains.lesson_1423_2_2_main.repository.WeatherDTO
 import ru.geekbrains.lesson_1423_2_2_main.utils.convertDtoToModel
-import java.io.IOException
-import java.lang.IllegalStateException
 
 class DetailsViewModel(
     private val detailsLiveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),

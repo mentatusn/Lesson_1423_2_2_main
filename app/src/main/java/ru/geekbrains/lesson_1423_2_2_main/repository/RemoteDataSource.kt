@@ -1,14 +1,9 @@
 package ru.geekbrains.lesson_1423_2_2_main.repository
 
 import com.google.gson.GsonBuilder
-import okhttp3.Call
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.geekbrains.lesson_1423_2_2_main.BuildConfig
-import ru.geekbrains.lesson_1423_2_2_main.utils.YANDEX_API_KEY_NAME
 import ru.geekbrains.lesson_1423_2_2_main.utils.YANDEX_API_URL
 
 class RemoteDataSource {

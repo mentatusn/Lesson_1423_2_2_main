@@ -1,14 +1,11 @@
 package ru.geekbrains.lesson_1423_2_2_main.view
 
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
-import ru.geekbrains.lesson_1423_2_2_main.lesson6.MainBroadcastReceiver
 import ru.geekbrains.lesson_1423_2_2_main.lesson6.ThreadsFragment
 import ru.geekbrains.lesson_1423_2_2_main.view.main.MainFragment
 
