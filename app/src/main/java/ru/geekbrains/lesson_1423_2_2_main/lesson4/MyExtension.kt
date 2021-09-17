@@ -1,9 +1,5 @@
 package ru.geekbrains.lesson_1423_2_2_main.lesson4
 
-import android.util.Log
-import ru.geekbrains.lesson_1423_2_2_main.lesson3.Lesson3
-import ru.geekbrains.lesson_1423_2_2_main.lesson4.*
-
 class MyExtension {
     fun main(){
         val people: List<LambdaKotlin.Person> = listOf(

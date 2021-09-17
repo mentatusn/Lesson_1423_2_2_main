@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson_1423_2_2_main.view.details
+package ru.geekbrains.lesson_1423_2_2_main.lesson6
 
 import android.app.IntentService
 import android.content.Intent
@@ -7,8 +7,6 @@ import android.os.Looper
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
 import ru.geekbrains.lesson_1423_2_2_main.BuildConfig
-import ru.geekbrains.lesson_1423_2_2_main.lesson6.TEST_BROADCAST_INTENT_FILTER
-import ru.geekbrains.lesson_1423_2_2_main.lesson6.THREADS_FRAGMENT_BROADCAST_EXTRA
 import ru.geekbrains.lesson_1423_2_2_main.repository.WeatherDTO
 import java.io.BufferedReader
 import java.io.InputStreamReader

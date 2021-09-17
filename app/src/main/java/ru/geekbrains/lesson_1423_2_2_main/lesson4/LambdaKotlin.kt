@@ -1,8 +1,6 @@
 package ru.geekbrains.lesson_1423_2_2_main.lesson4
 
-import android.app.Person
 import android.util.Log
-import ru.geekbrains.lesson_1423_2_2_main.lesson3.Lesson3
 
 class LambdaKotlin {
     fun main() {
