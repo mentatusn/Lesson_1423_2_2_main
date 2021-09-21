@@ -13,7 +13,6 @@ import ru.geekbrains.lesson_1423_2_2_main.view.OnItemViewClickListener
 class MainFragmentAdapter:RecyclerView.Adapter<MainFragmentAdapter.MainFragmentViewHolder>() {
 
     private var weatherData:List<Weather> = listOf()
-    private var isDataSetRus: Boolean = true
     private lateinit var  listener: OnItemViewClickListener
     fun setWeather(data:List<Weather>){
         weatherData = data

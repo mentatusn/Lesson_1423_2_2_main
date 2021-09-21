@@ -81,6 +81,7 @@ class DetailsFragment : Fragment() {
                 binding.loadingLayout.visibility = View.INVISIBLE
                 binding.mainView.visibility = View.VISIBLE
                 val weather = appState.weatherData
+                viewModel.saveWeather(Weather(localWeather.city,weather.temperature,weather.feelsLike,weather.condition))
                 showWeather(weather)
                 Snackbar.make(binding.root, "Success", Snackbar.LENGTH_LONG).show()
             }
@@ -104,10 +105,14 @@ class DetailsFragment : Fragment() {
     }
 
     private fun getWeather() {
+
         viewModel.getWeatherFromRemoteSource(localWeather.city.lat, localWeather.city.lon)
     }
 
     private fun showWeather(weather: Weather) {
+
+
+
         with(binding) {
             cityName.text = localWeather.city.name
             cityCoordinates.text = "lat ${localWeather.city.lat}\n lon ${localWeather.city.lon}"

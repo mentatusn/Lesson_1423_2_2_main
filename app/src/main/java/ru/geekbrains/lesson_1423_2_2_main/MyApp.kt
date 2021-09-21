@@ -1,0 +1,33 @@
+package ru.geekbrains.lesson_1423_2_2_main
+
+import android.app.Application
+import androidx.room.Room
+import ru.geekbrains.lesson_1423_2_2_main.room.HistoryDAO
+import ru.geekbrains.lesson_1423_2_2_main.room.HistoryDataBase
+import java.lang.IllegalStateException
+
+class MyApp:Application() {
+    override fun onCreate() {
+        super.onCreate()
+        appInstance = this
+    }
+
+    companion object{
+        private var appInstance:MyApp? = null
+        private var db:HistoryDataBase? = null
+        private const val DB_NAME = "HistoryDataBase.db"
+
+        fun getHistoryDAO():HistoryDAO{
+            if(db==null){
+                if(appInstance!=null){
+                    db = Room.databaseBuilder(appInstance!!.applicationContext,HistoryDataBase::class.java, DB_NAME)
+                        .allowMainThreadQueries()
+                        .build()
+                }else{
+                    throw  IllegalStateException("appInstance==null")
+                }
+            }
+            return db!!.historyDAO()
+        }
+    }
+}

@@ -2,16 +2,24 @@ package ru.geekbrains.lesson_1423_2_2_main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.geekbrains.lesson_1423_2_2_main.MyApp.Companion.getHistoryDAO
+import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
 import ru.geekbrains.lesson_1423_2_2_main.repository.DetailsRepositoryImpl
+import ru.geekbrains.lesson_1423_2_2_main.repository.LocalRepositoryImpl
 import ru.geekbrains.lesson_1423_2_2_main.repository.RemoteDataSource
 import ru.geekbrains.lesson_1423_2_2_main.repository.WeatherDTO
 import ru.geekbrains.lesson_1423_2_2_main.utils.convertDtoToModel
 
 class DetailsViewModel(
     private val detailsLiveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
-    private val detailsRepositoryImpl: DetailsRepositoryImpl=   DetailsRepositoryImpl(RemoteDataSource())
+    private val detailsRepositoryImpl: DetailsRepositoryImpl=   DetailsRepositoryImpl(RemoteDataSource()),
+    private val historyRepositoryImpl: LocalRepositoryImpl=   LocalRepositoryImpl(getHistoryDAO())
 ) :
     ViewModel() {
+
+    fun saveWeather(weather: Weather){
+        historyRepositoryImpl.saveEntity(weather)
+    }
 
     fun getLiveData() = detailsLiveDataToObserve;
 
