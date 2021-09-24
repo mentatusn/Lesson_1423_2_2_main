@@ -3,6 +3,7 @@
     package="ru.geekbrains.lesson_1423_2_2_main">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name="MyApp"
@@ -33,7 +34,7 @@
         </activity>
 
         <service android:name=".lesson6.MainService" />
-        <service android:name=".view.details.DetailsService" />
+        <service android:name=".lesson6.DetailsService" />
 
         <receiver
             android:name=".lesson6.MainBroadcastReceiver"

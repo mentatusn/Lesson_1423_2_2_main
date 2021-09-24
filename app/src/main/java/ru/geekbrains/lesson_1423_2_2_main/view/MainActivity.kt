@@ -1,5 +1,6 @@
 package ru.geekbrains.lesson_1423_2_2_main.view
 
+import android.content.ContentProvider
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.preference.PreferenceManager.getDefaultSharedPreferences
@@ -10,6 +11,7 @@ import ru.geekbrains.lesson_1423_2_2_main.MyApp.Companion.getHistoryDAO
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
 import ru.geekbrains.lesson_1423_2_2_main.lesson6.ThreadsFragment
+import ru.geekbrains.lesson_1423_2_2_main.lesson9.ContentProviderFragment
 import ru.geekbrains.lesson_1423_2_2_main.view.history.HistoryFragment
 import ru.geekbrains.lesson_1423_2_2_main.view.main.MainFragment
 
@@ -45,6 +47,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_open_fragment_history ->{
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, HistoryFragment.newInstance()).addToBackStack("").commit()
+                true
+            }
+
+            R.id.action_open_fragment_content_provider ->{
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ContentProviderFragment.newInstance()).addToBackStack("").commit()
                 true
             }
             else ->super.onOptionsItemSelected(item)
