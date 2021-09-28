@@ -45,11 +45,14 @@ class MapsFragment : Fragment() {
         map.uiSettings.isZoomControlsEnabled = true
         map.uiSettings.isZoomGesturesEnabled = true
 
+        val isPermissionGranted =
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED
 
-        map.setMyLocationEnabled(true)
+        map.setMyLocationEnabled(isPermissionGranted)
         map.uiSettings.isMyLocationButtonEnabled = true
 
-        
+
     }
 
     override fun onCreateView(
