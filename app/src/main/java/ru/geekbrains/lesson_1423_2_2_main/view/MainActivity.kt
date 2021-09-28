@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.geekbrains.lesson_1423_2_2_main.MyApp.Companion.getHistoryDAO
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
+import ru.geekbrains.lesson_1423_2_2_main.lesson10.MapsFragment
 import ru.geekbrains.lesson_1423_2_2_main.lesson6.ThreadsFragment
 import ru.geekbrains.lesson_1423_2_2_main.lesson9.ContentProviderFragment
 import ru.geekbrains.lesson_1423_2_2_main.view.history.HistoryFragment
@@ -28,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, MainFragment.newInstance()).commit()
+                //.replace(R.id.fragment_container, MainFragment.newInstance()).commit()
+                .replace(R.id.fragment_container, MapsFragment.newInstance()).commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,6 +55,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_open_fragment_content_provider ->{
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, ContentProviderFragment.newInstance()).addToBackStack("").commit()
+                true
+            }
+
+            R.id.action_open__fragment_menu_google_maps ->{
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, MapsFragment.newInstance()).addToBackStack("").commit()
                 true
             }
             else ->super.onOptionsItemSelected(item)
