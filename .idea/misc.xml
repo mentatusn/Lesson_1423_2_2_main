@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Dropbox/gb/GU_Android_1314/homework2/Lesson_1423_2_10_main/app/src/main/res/layout/fragment_google_maps_main.xml" value="0.33" />
+        <entry key="..\:/Dropbox/gb/GU_Android_1314/homework2/Lesson_1423_2_10_main/app/src/main/res/layout/fragment_main.xml" value="0.1" />
+        <entry key="..\:/Dropbox/gb/GU_Android_1314/homework2/Lesson_1423_2_10_main/app/src/main/res/layout/fragment_maps.xml" value="0.15648148148148147" />
+        <entry key="..\:/Dropbox/gb/GU_Android_1314/homework2/Lesson_1423_2_10_main/app/src/main/res/menu/main_screen_menu.xml" value="0.15648148148148147" />
         <entry key="..\:/Dropbox/gb/GU_Android_1314/homework2/Lesson_1423_2_2_main/app/src/main/res/drawable/ic_russia.xml" value="0.24947916666666667" />
         <entry key="..\:/Dropbox/gb/GU_Android_1314/homework2/Lesson_1423_2_2_main/app/src/main/res/layout/fragment_details.xml" value="0.22916666666666666" />
         <entry key="..\:/Dropbox/gb/GU_Android_1314/homework2/Lesson_1423_2_2_main/app/src/main/res/layout/fragment_main.xml" value="0.22916666666666666" />

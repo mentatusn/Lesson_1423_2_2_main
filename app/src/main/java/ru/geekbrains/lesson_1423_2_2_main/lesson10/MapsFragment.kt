@@ -2,6 +2,7 @@ package ru.geekbrains.lesson_1423_2_2_main.lesson10
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Geocoder
 import androidx.fragment.app.Fragment
 
@@ -15,8 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentGoogleMapsMainBinding
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentMainBinding
@@ -35,7 +35,9 @@ class MapsFragment : Fragment() {
             return _binding!!
         }
 
-     lateinit var map:GoogleMap
+    lateinit var map: GoogleMap
+
+    private val markers: ArrayList<Marker> = arrayListOf()
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
 
@@ -46,13 +48,45 @@ class MapsFragment : Fragment() {
         map.uiSettings.isZoomGesturesEnabled = true
 
         val isPermissionGranted =
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) ==
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) ==
                     PackageManager.PERMISSION_GRANTED
 
         map.setMyLocationEnabled(isPermissionGranted)
         map.uiSettings.isMyLocationButtonEnabled = true
 
+        map.setOnMapLongClickListener { location ->
+            moveToPosition(location)
+            addMarker(location)
+            drawLine()
+        }
+    }
 
+    private fun addMarker(location: LatLng) {
+        markers.add(
+            map.addMarker(
+                MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin))
+                    .position(location)
+                    .title("")
+            )
+        )
+    }
+
+    private fun drawLine() {
+        val last = markers.size - 1
+        if (last > 0) {
+            val startMarker = markers[last - 1].position
+            val endMarker = markers[last].position
+            map.addPolyline(
+                PolylineOptions()
+                    .add(startMarker, endMarker)
+                    .color(Color.RED)
+                    .width(5f)
+            )
+        }
     }
 
     override fun onCreateView(
@@ -71,11 +105,15 @@ class MapsFragment : Fragment() {
         binding.buttonSearch.setOnClickListener {
             val geocoder = Geocoder(requireContext())
             val addressRow = binding.searchAddress.text.toString()
-            val address = geocoder.getFromLocationName(addressRow,1)
-            val location =LatLng(address[0].latitude,address[0].longitude)
-            map.clear()
-            map.addMarker(MarkerOptions().position(location).title("Marker Start"))
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,15f))
+            val address = geocoder.getFromLocationName(addressRow, 1)
+            val location = LatLng(address[0].latitude, address[0].longitude)
+            moveToPosition(location)
         }
+    }
+
+    private fun moveToPosition(location: LatLng) {
+        //map.clear()
+        //map.addMarker(MarkerOptions().position(location).title("Marker Start"))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
     }
 }
