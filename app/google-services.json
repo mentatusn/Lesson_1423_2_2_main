@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1002769794665",
+    "project_id": "lesson-2-11-1423",
+    "storage_bucket": "lesson-2-11-1423.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002769794665:android:f47c25d06c77f1e736c4f8",
+        "android_client_info": {
+          "package_name": "ru.geekbrains.lesson_1423_2_2_main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002769794665-btg4i2j0epdmgdk0fktqp52a7h1ul8ed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApeyrxVPYp-vG0BzamwbTmpIClV1kABaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002769794665-btg4i2j0epdmgdk0fktqp52a7h1ul8ed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,10 +8,12 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.preference.PreferenceManager.getDefaultSharedPreferences
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import com.google.firebase.messaging.FirebaseMessaging
 import ru.geekbrains.lesson_1423_2_2_main.MyApp.Companion.getHistoryDAO
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
@@ -42,7 +44,14 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, MainFragment.newInstance()).commit()
                 //.replace(R.id.fragment_container, MapsFragment.newInstance()).commit()
-        pushNotification()
+        //pushNotification()
+
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { it->
+            if(it.isSuccessful){
+                Log.d("mylogs",it.result.toString())
+            }
+        }
     }
 
     private fun pushNotification() {
