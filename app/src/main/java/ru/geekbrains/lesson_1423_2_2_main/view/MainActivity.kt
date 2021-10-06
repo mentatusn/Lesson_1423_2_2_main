@@ -2,19 +2,15 @@ package ru.geekbrains.lesson_1423_2_2_main.view
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.ContentProvider
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.preference.PreferenceManager.getDefaultSharedPreferences
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.fragment.app.Fragment
 import com.google.firebase.messaging.FirebaseMessaging
-import ru.geekbrains.lesson_1423_2_2_main.MyApp.Companion.getHistoryDAO
 import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
 import ru.geekbrains.lesson_1423_2_2_main.lesson10.MapsFragment
@@ -43,13 +39,13 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, MainFragment.newInstance()).commit()
-                //.replace(R.id.fragment_container, MapsFragment.newInstance()).commit()
+        //.replace(R.id.fragment_container, MapsFragment.newInstance()).commit()
         //pushNotification()
 
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { it->
-            if(it.isSuccessful){
-                Log.d("mylogs",it.result.toString())
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { it ->
+            if (it.isSuccessful) {
+                Log.d("mylogs", it.result.toString())
             }
         }
     }
@@ -95,37 +91,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_screen_menu,menu)
+        menuInflater.inflate(R.menu.main_screen_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.action_open_fragment_threads ->{
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ThreadsFragment.newInstance()).commit()
+        return when (item.itemId) {
+            R.id.action_open_fragment_threads -> {
+                showFragment(ThreadsFragment.newInstance(), false)
                 true
             }
 
-            R.id.action_open_fragment_history ->{
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, HistoryFragment.newInstance()).addToBackStack("").commit()
+            R.id.action_open_fragment_history -> {
+                showFragment(HistoryFragment.newInstance(), true)
                 true
             }
 
-            R.id.action_open_fragment_content_provider ->{
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ContentProviderFragment.newInstance()).addToBackStack("").commit()
+            R.id.action_open_fragment_content_provider -> {
+                showFragment(ContentProviderFragment.newInstance(), true)
                 true
             }
 
-            R.id.action_open__fragment_menu_google_maps ->{
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, MapsFragment.newInstance()).addToBackStack("").commit()
+            R.id.action_open__fragment_menu_google_maps -> {
+                showFragment(MapsFragment.newInstance(), true)
                 true
             }
-            else ->super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showFragment(fragment: Fragment, addToBackStack: Boolean) {
+        val tran = supportFragmentManager.beginTransaction()
+        if (addToBackStack) {
+            tran.addToBackStack("")
+        }
+        tran.replace(R.id.fragment_container, fragment).commitAllowingStateLoss()
     }
 
 

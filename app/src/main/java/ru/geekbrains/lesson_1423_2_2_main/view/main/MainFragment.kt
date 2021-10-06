@@ -21,19 +21,15 @@ import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentMainBinding
 import ru.geekbrains.lesson_1423_2_2_main.domain.City
 import ru.geekbrains.lesson_1423_2_2_main.domain.Weather
+import ru.geekbrains.lesson_1423_2_2_main.utils.ViewBindingFragment
 import ru.geekbrains.lesson_1423_2_2_main.view.OnItemViewClickListener
 import ru.geekbrains.lesson_1423_2_2_main.view.details.DetailsFragment
 import ru.geekbrains.lesson_1423_2_2_main.viewmodel.AppState
 import ru.geekbrains.lesson_1423_2_2_main.viewmodel.MainViewModel
 
-class MainFragment : Fragment(), OnItemViewClickListener {
+class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate), OnItemViewClickListener {
 
 
-    private var _binding: FragmentMainBinding? = null
-    private val binding: FragmentMainBinding
-        get() {
-            return _binding!!
-        }
     private var isDataSetRus: Boolean = true
     private var adapter = MainFragmentAdapter()
 
@@ -172,15 +168,6 @@ class MainFragment : Fragment(), OnItemViewClickListener {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -208,6 +195,15 @@ class MainFragment : Fragment(), OnItemViewClickListener {
         viewModel.getWeatherFromLocalSourceRus()
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Error -> {
@@ -227,11 +223,6 @@ class MainFragment : Fragment(), OnItemViewClickListener {
         }
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun onItemClick(weather: Weather) {
         val bundle = Bundle()
